@@ -30,11 +30,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject _endPanel;
 
-    [SerializeField]
-    private Image _soundImage;
-
-    [SerializeField]
-    private Sprite _activeSoundSprite, _inactiveSoundSprite;
 
     private void Awake()
     {
@@ -68,15 +63,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void ToggleSound()
-    {
-        bool sound = (PlayerPrefs.HasKey(Constants.DATA.SETTINGS_SOUND) ? PlayerPrefs.GetInt(Constants.DATA.SETTINGS_SOUND)
-            : 1) == 1;
-        sound = !sound;
-        PlayerPrefs.SetInt(Constants.DATA.SETTINGS_SOUND, sound ? 1 : 0);
-        _soundImage.sprite = sound ? _activeSoundSprite : _inactiveSoundSprite;
-        AudioManager.Instance.ToggleSound();
-    }
+    
 
     public void EndGame()
     {
@@ -85,7 +72,6 @@ public class GameManager : MonoBehaviour
 
         bool sound = (PlayerPrefs.HasKey(Constants.DATA.SETTINGS_SOUND) ?
           PlayerPrefs.GetInt(Constants.DATA.SETTINGS_SOUND) : 1) == 1;
-        _soundImage.sprite = sound ? _activeSoundSprite : _inactiveSoundSprite;
 
         int highScore = PlayerPrefs.HasKey(Constants.DATA.HIGH_SCORE) ? PlayerPrefs.GetInt(Constants.DATA.HIGH_SCORE) : 0;
         if(score > highScore)

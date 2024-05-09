@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _startSpeed;
 
-    [SerializeField]
-    private AudioClip _moveClip, _loseClip, _winClip;
 
     private float speed,startRadius;
 
@@ -27,7 +25,6 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             speed *= -1f;
-            AudioManager.Instance.PlaySound(_moveClip);
         }
     }
 
@@ -52,13 +49,11 @@ public class Player : MonoBehaviour
         if(collision.CompareTag(Constants.Tags.SCORE))
         {
             GameManager.Instance.UpdateScore();
-            AudioManager.Instance.PlaySound(_winClip);
             return;
         }
         if (collision.CompareTag(Constants.Tags.OBSTACLE))
         {
             GameManager.Instance.EndGame();
-            AudioManager.Instance.PlaySound(_loseClip);
             var explosion = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(explosion, 2f);
             Destroy(gameObject);
